@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { MovieContext } from "./MoviesContext";
 
-const addMovies = () => {
+const AddMovies = () => {
+  const [movies, setMovies] = useContext(MovieContext);
   const [name, setName] = useState("");
-  const [proce, setPrice] = useState("");
+  const [price, setPrice] = useState("");
 
   const updateName = (e) => {
     setName(e.target.value);
@@ -14,10 +16,12 @@ const addMovies = () => {
 
   const addMovie = (e) => {
     e.preventDefault();
+    setMovies((prevItems) => [...prevItems, { name: name, price: price }]);
   };
 
   return (
-    <form>
+    <form onSubmit={addMovie}>
+      <label>NAME</label>
       <input type="text" name="name" value={name} onChange={updateName}></input>
       <input
         type="text"
@@ -30,4 +34,4 @@ const addMovies = () => {
   );
 };
 
-export default addMovies;
+export default AddMovies;
